@@ -1,0 +1,23 @@
+name: Boilerplate
+options:
+  bundleIdPrefix: com.samples
+  deploymentTarget: 
+    iOS: 12.1
+  postGenCommand: pod install
+targets:
+  Boilerplate:
+    type: application
+    platform: iOS
+    sources: Boilerplate
+    settings:
+      base:
+        INFOPLIST_FILE: Boilerplate/Application/Info.plist
+  BoilerplateTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources: BoilerplateTests
+  BoilerplateUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources: BoilerplateUITests
+
