@@ -50,6 +50,7 @@ class SwiftProjectGenerator < Thor
   desc "proj", "Genera un nuovo progetto a partire dal boilerplate swift"
   def proj
   	Utils.header
+    Utils.check_external_dependencies
   	verbose = options[:verbose]
   	project_name = options[:name]
   	if project_name == nil || project_name == "" || project_name == "name" 
@@ -104,6 +105,11 @@ class SwiftProjectGenerator < Thor
 				
 				#3. Sostituisco ovunque "Boilerplate" con project_name
 				replace_file_name_and_text_in_folder dest_dir, $boilerplate_project_name, project_name, verbose
+
+        #4. Eseguo XCodeGen
+        Dir.chdir dest_dir do 
+          Utils.execute("xcodegen generate", verbose, true, "Generazione progetto XCode e file correlati (pod install incluso)")
+        end
 			}
 
 			puts "\n"
@@ -155,12 +161,12 @@ class Utils
 
   # Controlla le dipendenze esterne
   def self.check_external_dependencies
-    dependencies = ["sqlite3"]
+    dependencies = ["xcodegen"]
     dependencies.each do |item|
       result = system "which #{item}", :out => File::NULL
       if !result
         puts "ATTENZIONE: " + item.red + " non risulta installato sul tuo sistema."
-        puts "Le dipendenze esterne utilizzate da " + Utils.elios + " sono: " + (dependencies.map { |k| "'#{k}'" }.join(", "))
+        puts "Le dipendenze esterne utilizzate da " + Utils.tool + " sono: " + (dependencies.map { |k| "'#{k}'" }.join(", "))
         abort
       end
     end
