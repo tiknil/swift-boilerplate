@@ -57,7 +57,6 @@ class SwiftProjectGenerator < Thor
   		abort "Nome progetto non valido"
   	end
   	project_name = project_name.gsub(" ","")
-  	project_name = project_name.capitalize
 
   	parent = File.expand_path("..", Dir.pwd)
   	dest_dir = parent + "/" + project_name
