@@ -18,6 +18,7 @@ targets:
       base:
         INFOPLIST_FILE: Boilerplate/Application/Info.plist
         DEVELOPMENT_TEAM: EFBPS5S5Q3
+        SWIFT_OBJC_BRIDGING_HEADER: Boilerplate/Application/BridgingHeader.h
   BoilerplateTests:
     type: bundle.unit-test
     platform: iOS
