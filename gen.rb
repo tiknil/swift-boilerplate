@@ -101,6 +101,7 @@ class SwiftProjectGenerator < Thor
 				FileUtils.cp_r $boilerplate_project_name + "UITests", dest_dir, :verbose => true
 				FileUtils.cp "Podfile", dest_dir, :verbose => true
 				FileUtils.cp "project.yml", dest_dir, :verbose => true
+				FileUtils.cp ".gitignore", dest_dir, :verbose => true
 				
 				#3. Sostituisco ovunque "Boilerplate" con project_name
 				replace_file_name_and_text_in_folder dest_dir, $boilerplate_project_name, project_name, verbose
@@ -108,6 +109,9 @@ class SwiftProjectGenerator < Thor
         #4. Eseguo XCodeGen
         Dir.chdir dest_dir do 
           Utils.execute("xcodegen generate", verbose, true, "Generazione progetto XCode e file correlati (pod install incluso)")
+          Utils.execute("git init", verbose, true, "Inizializzazione repo git locale")
+          Utils.execute("git add .", verbose, true, "Aggiunta di tutti i file nel repo git")
+          Utils.execute("git commit -m 'first commit'", verbose, true, "Commit git iniziale")
         end
 			}
 
@@ -123,8 +127,6 @@ class SwiftProjectGenerator < Thor
   	# @param nome del progetto boilerplate
   	# @param nome del nuovo progetto 
   	def replace_file_name_and_text_in_folder dir, boilerplate_name, project_name, verbose
-  		puts "dir: #{dir}, boilerplate_name #{boilerplate_name}, project_name #{project_name}"
-
   		Dir.chdir dir do 
   			Dir.glob("*").each do |file_name|
   				if File.directory? file_name
