@@ -37,7 +37,7 @@ class LoginVC: BaseVC {
     override func setupUi() {
         super.setupUi()
         
-        titleLbl.text = "Login"
+        titleLbl.text = "Login \((try? AppConfiguration.value(for: "VAR")) ?? -1)"
         titleLbl.textAlignment = .center
         titleLbl.textColor = .white
         

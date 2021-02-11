@@ -101,6 +101,8 @@ class SwiftProjectGenerator < Thor
 				FileUtils.cp_r $boilerplate_project_name + "UITests", dest_dir, :verbose => true
 				FileUtils.cp "Podfile", dest_dir, :verbose => true
 				FileUtils.cp "project.yml", dest_dir, :verbose => true
+        FileUtils.cp "Debug.xcconfig", dest_dir, :verbose => true
+        FileUtils.cp "Release.xcconfig", dest_dir, :verbose => true
 				FileUtils.cp ".gitignore", dest_dir, :verbose => true
 				
 				#3. Sostituisco ovunque "Boilerplate" con project_name

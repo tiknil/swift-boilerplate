@@ -4,6 +4,11 @@ options:
   deploymentTarget: 
     iOS: 12.1
   postGenCommand: pod install
+settings:
+  DEVELOPMENT_TEAM: EFBPS5S5Q3
+configFiles:
+  Debug: Debug.xcconfig
+  Release: Release.xcconfig
 targets:
   Boilerplate:
     type: application
@@ -12,6 +17,7 @@ targets:
     settings:
       base:
         INFOPLIST_FILE: Boilerplate/Application/Info.plist
+        DEVELOPMENT_TEAM: EFBPS5S5Q3
   BoilerplateTests:
     type: bundle.unit-test
     platform: iOS
