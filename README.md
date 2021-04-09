@@ -13,7 +13,7 @@ Il boilerplate contiene il file ruby gen.rb che permette di creare un nuovo prog
 ```
 3. Quindi eseguilo
 ```
-./kotlinboilerplate.rb
+./gen.rb proj -n NameOfNewApp
 ```
 
 Puoi dargli direttamente i parametri seguenti: 

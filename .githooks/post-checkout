@@ -1,0 +1,11 @@
+#/usr/bin/env bash
+# @ Tiknil srl
+# Aggiorna il progetto xcode se necessario
+
+if ! command -v xcodegen &> /dev/null
+then
+    echo "xcodegen not found; install it via `brew install xcodegen`"
+    exit
+fi
+
+xcodegen generate --use-cache
