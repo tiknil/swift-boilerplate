@@ -1,0 +1,10 @@
+//
+//  Debug.xcconfig
+//
+//  Created by Riccardo Tribbia on 15/07/2020.
+//  Copyright © 2020 Tiknil. All rights reserved.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+VAR=0
