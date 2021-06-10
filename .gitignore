@@ -77,6 +77,10 @@ Debug.xcconfig
 *.xcodeproj  
 *.xcworkspace
 
+# Ignore .env for firebase
+.env
 
+# Ignore Localizable.strings because they will be build with twine script
+Localizable.strings
 
 
