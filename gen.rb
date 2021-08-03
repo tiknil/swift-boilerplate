@@ -46,8 +46,8 @@ class SwiftProjectGenerator < Thor
     Utils.header
   end
 
-  option :name, :desc => "Il nome del progetto che si vuole creare. EVITARE SPAZI, CARATTERI SPECIALI, ETC", :aliases => '-n'
   desc "proj", "Genera un nuovo progetto a partire dal boilerplate swift"
+  option :name, :desc => "Il nome del progetto che si vuole creare. EVITARE SPAZI, CARATTERI SPECIALI, ETC", :aliases => '-n'
   option :locale, :banner => "git@bitbucket.org:team/app-localization.git", :desc => "L'url del repo git delle traduzioni con twine.txt", :aliases => '-l'
   def proj
   	Utils.header
@@ -64,10 +64,13 @@ class SwiftProjectGenerator < Thor
       abort "Passa l'url del repo git delle traduzioni twine.txt con parametro -l"
     end 
 
+    puts "Tieni conto che il repo git delle traduzioni deve contenere almeno un file (es: twine.txt) per poter essere applicato come submodule (premi un tasto per continuare)"
+		STDIN.gets.chomp
+
   	parent = File.expand_path("..", Dir.pwd)
   	dest_dir = parent + "/" + project_name
 
-  	continue_to_create = options[:force]
+    continue_to_create = options[:force]
   	if !continue_to_create 
   		puts "Vuoi avviare la generazione del nuovo progetto swift " + project_name.blue + " nella cartella " + dest_dir.red + "? (Y/n)"
 			confirm = STDIN.gets.chomp
