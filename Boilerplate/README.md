@@ -28,8 +28,3 @@
   //
   //****************************************************************************************************
 ```
-
-## Note per l'inizializzazione in locale del progetto
-
-Eseguire almeno una volta `./init-proj-locally.rb`. Questo script verifica la presenza sul sistema di `xcodegen` e, se presente, lo esegue una volta per inizializzare il progetto XCode (che è in `.gitignore`, quindi il progetto non viene condiviso).
-Inserisce poi un git hook `post-checkout` che esegue se necessario `xcodegen generate --no-cache` per l'aggiornamento del file di progetto quando si fa checkout di un branch

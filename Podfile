@@ -8,6 +8,7 @@ target 'Boilerplate' do
   inhibit_all_warnings!
 
   # Pods for Boilerplate
+  pod 'SwiftGen', '~> 6.0' # Tool per generare codice swift di riferimento alle risorse (stringhe, immagini, ecc)
   pod 'Swinject', '~> 2.7' # IoC Container per dependency injection
   pod 'RxCocoa', '~> 5.1' # Functional Reactive Programming
   pod 'RxOptional', '~> 4.1' # Permette di filtrare elementi nil trasformando observable optional in wrapped
@@ -27,4 +28,12 @@ target 'Boilerplate' do
     # Pods for testing
   end
 
+end
+
+post_install do |pi|
+    pi.pods_project.targets.each do |t|
+        t.build_configurations.each do |config|
+            config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '12.1'
+        end
+    end
 end

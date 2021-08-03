@@ -19,6 +19,11 @@ targets:
         INFOPLIST_FILE: Boilerplate/Application/Info.plist
         DEVELOPMENT_TEAM: EFBPS5S5Q3
         SWIFT_OBJC_BRIDGING_HEADER: Boilerplate/Application/BridgingHeader.h
+    preBuildScripts:
+      - path: loc-twine.sh
+        name: Update localizations with twine 
+      - script: "${PODS_ROOT}/SwiftGen/bin/swiftgen"
+        name: SwiftGen
   BoilerplateTests:
     type: bundle.unit-test
     platform: iOS

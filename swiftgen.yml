@@ -1,0 +1,17 @@
+strings:
+  inputs: Boilerplate/Resources/Locale/en.lproj/Localizable.strings
+  outputs:
+    templateName: structured-swift5
+    output: Boilerplate/Resources/Generated/L10n.swift
+
+xcassets:
+  inputs: Boilerplate/Resources/Assets.xcassets
+  outputs:
+    templateName: swift5
+    output: Boilerplate/Resources/Generated/Asset.swift
+
+fonts:
+  inputs: Boilerplate/Resources/Fonts
+  outputs:
+    templateName: swift5
+    output: Boilerplate/Resources/Generated/FontFamily.swift

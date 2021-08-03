@@ -48,6 +48,7 @@ class SwiftProjectGenerator < Thor
 
   option :name, :desc => "Il nome del progetto che si vuole creare. EVITARE SPAZI, CARATTERI SPECIALI, ETC", :aliases => '-n'
   desc "proj", "Genera un nuovo progetto a partire dal boilerplate swift"
+  option :locale, :banner => "git@bitbucket.org:team/app-localization.git", :desc => "L'url del repo git delle traduzioni con twine.txt", :aliases => '-l'
   def proj
   	Utils.header
     Utils.check_external_dependencies
@@ -57,6 +58,11 @@ class SwiftProjectGenerator < Thor
   		abort "Nome progetto non valido"
   	end
   	project_name = project_name.gsub(" ","")
+
+    localizations_git_url = options[:locale]
+    if localizations_git_url == nil || localizations_git_url == "" 
+      abort "Passa l'url del repo git delle traduzioni twine.txt con parametro -l"
+    end 
 
   	parent = File.expand_path("..", Dir.pwd)
   	dest_dir = parent + "/" + project_name
@@ -99,18 +105,15 @@ class SwiftProjectGenerator < Thor
 				FileUtils.cp_r $boilerplate_project_name , dest_dir, :verbose => true
 				FileUtils.cp_r $boilerplate_project_name + "Tests", dest_dir, :verbose => true
 				FileUtils.cp_r $boilerplate_project_name + "UITests", dest_dir, :verbose => true
-        FileUtils.cp_r ".githooks", dest_dir, :verbose => true
-				FileUtils.cp "Podfile", dest_dir, :verbose => true
+        FileUtils.cp "Podfile", dest_dir, :verbose => true
 				FileUtils.cp "project.yml", dest_dir, :verbose => true
         FileUtils.cp "Debug.xcconfig", dest_dir, :verbose => true
         FileUtils.cp "Release.xcconfig", dest_dir, :verbose => true
 				FileUtils.cp ".gitignore", dest_dir, :verbose => true
-        FileUtils.cp "init-proj-locally.rb", dest_dir, :verbose => true
+        FileUtils.cp "loc-twine.sh", dest_dir, :verbose => true
+        FileUtils.cp "swiftgen.yml", dest_dir, :verbose => true
 
-        # Applico i privilegi di esecuzione al file di inizializzazione locale del progetto
-        FileUtils.chmod "u+x", dest_dir + "/init-proj-locally.rb", verbose: true
-				
-				#3. Sostituisco ovunque "Boilerplate" con project_name
+        #3. Sostituisco ovunque "Boilerplate" con project_name
 				replace_file_name_and_text_in_folder dest_dir, $boilerplate_project_name, project_name, verbose
 
         #4. Eseguo XCodeGen
@@ -119,7 +122,12 @@ class SwiftProjectGenerator < Thor
           Utils.execute("git init", verbose, true, "Inizializzazione repo git locale")
           Utils.execute("git add .", verbose, true, "Aggiunta di tutti i file nel repo git")
           Utils.execute("git commit -m 'first commit'", verbose, true, "Commit git iniziale")
+          Utils.execute("git submodule add " + localizations_git_url  + "  Localizations")
         end
+
+        #5. Dopo la generazione del progetto elimino il file di XCodeGen
+        FileUtils.rm_rf dest_dir + "/project.yml"
+        FileUtils.rm_rf dest_dir + "/loc-twine.sh"
 			}
 
 			puts "\n"

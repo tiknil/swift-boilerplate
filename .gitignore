@@ -72,10 +72,6 @@ fastlane/test_output
 # Local configuration
 Debug.xcconfig
 
-## Ignore project files as we generate them with xcodegen ([https://github.com/yonaskolb/XcodeGen](https://github.com/yonaskolb/XcodeGen))  
-*.xcodeproj  
-*.xcworkspace
-
 # Ignore .env for firebase
 .env
 
